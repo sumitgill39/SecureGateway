@@ -1,0 +1,111 @@
+Create a comprehensive enterprise-grade Secure Access Management System (SAMS) with the following specifications:
+
+## Core Architecture Requirements:
+
+### 1. Multi-Domain LDAP Authentication
+- Support connecting to multiple LDAP servers simultaneously
+- Handle users from different organizational domains
+- Implement domain-based routing for authentication
+- Support LDAP failover and load balancing
+
+### 2. Application Onboarding & Inventory Management
+- Application registration system with metadata:
+  - Application name, owner, criticality level
+  - Environment classification (DEV, QA, UAT, STAGE, PREPROD, PROD, DR)
+  - Associated infrastructure (servers, containers, databases)
+- Tag-based infrastructure sharing system:
+  - Resources can have multiple tags
+  - If server/container shares tags with multiple applications, it appears in all relevant application inventories
+  - Tag inheritance and hierarchical tagging support
+
+### 3. Role-Based Access Control (RBAC)
+- Roles: Admin, Technical Project Owner (TPO), Developer, QA Engineer
+- Technical Project Owners can:
+  - Define team access permissions per environment
+  - Grant/revoke access to specific team members
+  - Set environment-specific access policies (e.g., DEV=read/write, PROD=read-only)
+- Granular permission matrix per application/environment/resource
+
+### 4. Identity & Access Management (IAM) Integration
+- API integration with enterprise IAM systems (Okta, Azure AD, Ping Identity)
+- Automatic group membership synchronization
+- Just-In-Time (JIT) access provisioning
+- SAML/OAuth2/OIDC support
+
+### 5. Access Request Workflow
+- Self-service request portal with:
+  - Resource browser (filtered by user's application access)
+  - Reason for access with business justification
+  - Requested duration
+- Approval workflow:
+  - Automatic routing to appropriate TPO based on application ownership
+  - Email/Slack/Teams notifications
+  - Approval dashboard for TPOs
+- Time-boxed access options: 15, 20, 30, 45, 60, 90, 120 minutes
+- Access types:
+  - Read-only (view files, run diagnostic commands)
+  - Read-write (full access with restrictions on sensitive operations)
+  - Emergency break-glass (with additional approvals)
+
+### 6. Security & Compliance Features
+- Real-time session monitoring and recording
+- Command logging with:
+  - Timestamp, user, resource, command executed
+  - Output capture for sensitive commands
+  - Intelligent filtering of passwords/secrets in logs
+- Sensitive file/path blocking:
+  - Configurable blocklist per application/environment
+  - Pattern-based content masking (passwords, API keys, tokens)
+  - Prevent editing of critical system files
+- Automatic session termination after approved time limit
+- Kill switch for TPOs to immediately revoke active sessions
+
+### 7. Technical Implementation Details
+- Web-based terminal using xterm.js or similar
+- WebSocket-based real-time communication
+- Containerized microservices architecture
+- RESTful API for all operations
+- Multi-cloud support (AWS, Azure, GCP, on-premise)
+- High availability with clustering support
+- Encrypted audit log storage with retention policies
+
+### 8. User Interface Requirements
+- Dashboard showing:
+  - My applications and current access levels
+  - Pending access requests
+  - Active sessions
+  - Access history
+- TPO Management Console:
+  - Team member access matrix
+  - Infrastructure inventory management
+  - Approval queue
+  - Audit log viewer
+  - Real-time session monitoring
+- Responsive design for mobile access
+
+### 9. Integration Requirements
+- Kubernetes API for pod/container access
+- SSH proxy for server access
+- Docker API for container management
+- Splunk/ELK/Datadog for log forwarding
+- ServiceNow/Jira for ticket creation
+- Slack/Teams for notifications
+
+### 10. Additional Features
+- Access analytics and reporting
+- Anomaly detection for suspicious commands
+- Automated compliance reports
+- Resource utilization tracking
+- Session replay functionality
+- API for programmatic access requests
+
+Build this system with:
+- Modern tech stack (React/Vue/Angular frontend, Node.js/Go/Python backend)
+- Microservices architecture
+- Kubernetes-native deployment
+- Infrastructure as Code (Terraform/CloudFormation)
+- CI/CD pipeline setup
+- Comprehensive API documentation
+- Security best practices (OWASP compliance)
+
+Focus on creating a user-friendly, secure, and scalable solution that reduces developer friction while maintaining strict security controls. The system should be cloud-native but support hybrid deployments.
